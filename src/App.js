@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { QueryClientProvider, QueryClient } from "react-query";
+import { ReactQueryDevtools } from 'react-query/devtools';
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+import {Home} from "./components/pages/Home.page";
+import Navbar from "./components/Navbar";
+import {RQSuperHeroesPage} from "./components/pages/RQSuperHeroes.page"
+import {SuperHeroes} from "./components/pages/SuperHeroes.Page";
+
+const queryClient = new QueryClient()
+
+
+function App(){
+  return(
+    <>
+    <QueryClientProvider client={queryClient}>
+    <BrowserRouter>
+    <Navbar />
+    <Routes>
+    <Route exact path="/" element={<Home />}/>
+    <Route exact path="/RQSuperHeroesPage" element={<RQSuperHeroesPage /> } />
+      <Route  exact path="/SuperHeroes" element={<SuperHeroes />} />
+      </Routes>
+    </BrowserRouter>
+    <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
+    </QueryClientProvider>
+      </>
   );
 }
 
-export default App;
+export default App
